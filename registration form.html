@@ -29,31 +29,97 @@
       margin-top: 10px;
     }
  </style>
+  <script>
+    function validateForm() {
+        var name = document.forms["registrationForm"]["Name"].value;
+        var class_name = document.forms["registrationForm"]["class"].value;
+        var ID_NO = document.forms["registrationForm"]["ID_NO"].value;
+        var specialization = document.forms["registrationForm"]["specialization"].value;
+        var email = document.forms["registrationForm"]["email"].value;
+        var pwd = document.forms["registrationForm"]["pwd"].value;
+        var confirm_pwd = document.forms["registrationForm"]["confirm_pwd"].value;
+        var AOI = document.forms["registrationForm"]["AOI"].value;
+        var desired_faculty = document.forms["registrationForm"]["desired_faculty"].value;
+        var project_deadline = document.forms["registrationForm"]["project_deadline"].value;
+
+        if (!/^[a-zA-Z\s]+$/.test(name)) {
+            alert("Name should only contain alphabets and spaces.");
+            return false;
+        }
+
+        if (!/^[a-zA-Z\s]+$/.test(class_name)) {
+            alert("Class should only contain alphabets and special characters.");
+            return false;
+        }
+
+        if (isNaN(ID_NO)) {
+            alert("ID NO should only contain numbers.");
+            return false;
+        }
+
+        if (!/^[a-zA-Z\s]+$/.test(specialization)) {
+            alert("Specialization should only contain alphabets and spaces.");
+            return false;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            alert("Invalid email format.");
+            return false;
+        }
+
+        if (pwd !== confirm_pwd) {
+            alert("Passwords do not match.");
+            return false;
+        }
+
+        if (!/^[a-zA-Z\s]+$/.test(AOI)) {
+            alert("Area of Interest should only contain alphabets and spaces.");
+            return false;
+        }
+
+        if (!/^[a-zA-Z\s]+$/.test(desired_faculty)) {
+            alert("Desired Faculty should only contain alphabets and spaces.");
+            return false;
+        }
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+
+        if (new Date(project_deadline) < new Date(today)) {
+            alert("Project deadline should be a future date.");
+            return false;
+        }
+    }
+</script>
 </head>
 <body>
- <h2>Registration form</h2>
- <form>
-    <label for="Name">Name</label><br>
-    <input type="Name" id="Name" name="Name" required><br>
-    <label for="class">class:</label><br>
-    <input type="class" id="class" name="class" required><br>
-    <label for="ID NO">ID NO:</label><br>
-    <input type="ID NO" id="ID NO" name="ID NO" required><br>
-    <label for="specialization">specialization:</label><br>
-    <input type="specialization" id="specialization" name="specialization" required><br>
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br>
-    <label for="pwd">Password:</label><br>
-    <input type="password" id="pwd" name="pwd" required><br>
-    <label for="confirm pwd">Confirm Password:</label><br>
-    <input type="password" id="pwd" name="pwd" required><br>
-    <label for="Area of interest">Area of interest:</label><br>
-    <input type="Area of interest" id="AOi" name="Areaof interest" required><br>
-    <label for="info">Desired Faculty </label><br>
-    <input type="text" id="AOi" name="Desired Faculty" required><br>
-    <label for="info">Project Deadline </label><br>
-    <input type="date" id="AOi" name="Project Deadline" required><br>
-    <input type="button" value="Register">
- </form>
+  <h2>Registration form</h2>
+  <form name="registrationForm" action="/submit_registration" method="post" onsubmit="return validateForm()">
+      <label for="Name">Name:</label><br>
+      <input type="text" id="Name" name="Name" required autocomplete="name"><br>
+      <label for="class">Class:</label><br>
+      <input type="text" id="class" name="class" required><br>
+      <label for="ID_NO">ID NO:</label><br>
+      <input type="number" id="ID_NO" name="ID_NO" required><br>
+      <label for="specialization">Specialization:</label><br>
+      <input type="text" id="specialization" name="specialization" required><br>
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required autocomplete="email"><br>
+      <label for="pwd">Password:</label><br>
+      <input type="password" id="pwd" name="pwd" required autocomplete="new-password"><br>
+      <label for="confirm_pwd">Confirm Password:</label><br>
+      <input type="password" id="confirm_pwd" name="confirm_pwd" required autocomplete="new-password"><br>
+      <label for="AOI">Area of Interest:</label><br>
+      <input type="text" id="AOI" name="AOI" required><br>
+      <label for="desired_faculty">Desired Faculty:</label><br>
+      <input type="text" id="desired_faculty" name="desired_faculty" required><br>
+      <label for="project_deadline">Project Deadline:</label><br>
+      <input type="date" id="project_deadline" name="project_deadline" required><br>
+      <input type="submit" value="Register">
+  </form>
 </body>
 </html>
